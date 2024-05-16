@@ -2,28 +2,17 @@ import operator
 import numpy as np
 
 
-# odległość Mahalanobisa
-def distance(instance1, instance2, k):
-    # mm to wektory średnich, czyli mean vector
+def mahalanobisDistance(matrix1, matrix2):
     # cm to macierze kowariancji, czyli covariance matrices
-    mm1 = instance1[0]
-    cm1 = instance1[1]
-    mm2 = instance2[0]
-    cm2 = instance2[1]
-    # Odległość ta jest obliczana jako suma 3 tych działań - k (regulacja odległości)
-    # 1. iloczyn macierzy odwrotnej cm
-    distance = np.trace(np.dot(np.linalg.inv(cm2), cm1))
-    # 2. kwadrat różnicy między wektorami średnimi, przemnożony przez macierz odwrotną cm2
-    distance += (np.dot(np.dot((mm2 - mm1).transpose(), np.linalg.inv(cm2)), mm2 - mm1))
-    # 3. różnica logarytmów wyznaczników macierzy cm
-    distance += np.log(np.linalg.det(cm2)) - np.log(np.linalg.det(cm1))
-    distance -= k
-    return distance
+    cm1 = matrix1[1]
+    cm2 = matrix2[1]
+    return np.trace(np.dot(np.linalg.inv(cm2), cm1))
 
-def getNeighbors(trainingset, instance, k):
+
+def getNeighbors(trainingset, matrix, k):
     distances = []
     for x in trainingset:
-        dist = distance(x, instance, k) + distance(instance, x, k)
+        dist = mahalanobisDistance(x, matrix) + mahalanobisDistance(matrix, x)
         distances.append((x[2], dist))
     distances.sort(key=operator.itemgetter(1))
     neighbors = []
@@ -31,7 +20,8 @@ def getNeighbors(trainingset, instance, k):
         neighbors.append(distances[i][0])
     return neighbors
 
-def nearestclass(neighbors):
+
+def nearestClass(neighbors):
     # "1" -> classical, "2" -> disco, "3" -> hiphop, "4" -> metal
     classVote = {}
     for x in range(len(neighbors)):
