@@ -25,7 +25,7 @@ def splitDataset(dataset, split, trset, teset):
 
 def getAccuracy(testSet, prediction):
     correct = 0
-    genreLabels = {1: 'classical', 2: 'disco', 3: 'hiphop', 4: 'metal'}
+    genreLabels = {0: "classical", 1: "disco", 2: "hiphop", 3: "metal",4: "blues",5: "country"}
     genres = list(genreLabels.values())
 
     TP = {genre: 0 for genre in genres}     # True Positive

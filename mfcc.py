@@ -2,10 +2,10 @@ import time
 import numpy as np
 import scipy.fftpack as fftp
 
-def freq_to_mel[T](f: T,/) -> T:
+def freq_to_mel(f,/):
     return 1125.0 * np.log(1.0 + f / 700.0)
 
-def mel_to_freq[T](m: T,/) -> T:
+def mel_to_freq(m,/):
     return 700.0 * (np.exp(m / 1125.0) - 1.0)
 
 def highpass_filter_in_place(audio: np.ndarray,/):
@@ -55,12 +55,10 @@ def main():
     import scipy.io.wavfile as wav
 
     startTime = time.perf_counter_ns()
-    directory = "./data"
+    Directories = ["classical","disco","hiphop","metal","blues","country"]
     with open("./my.dat","wb") as f:
-        i = 0
-        for folder in os.listdir(directory):
-            i += 1
-            path = directory + "/" + folder
+        for i in range(len(Directories)):
+            path = "./data/" + Directories[i]
             for file in os.listdir(path):
                 try:
                     (rate,sig) = wav.read(path + "/" + file)
@@ -68,7 +66,7 @@ def main():
                     covariance = np.cov(np.matrix.transpose(mfcc_feat))
                     pickle.dump((covariance,i),f)
                 except Exception as e:
-                    print(f"Wyjątek: {traceback.format_exc()} w folderze '{folder}' w pliku '{file}'.")
+                    print(f"Wyjątek w folderze '{Directories[i]}' w pliku '{file}': {traceback.format_exc()}")
     endTime = time.perf_counter_ns()
     print(f"Czas wykonania: {(endTime - startTime) / 1e9} s")
 

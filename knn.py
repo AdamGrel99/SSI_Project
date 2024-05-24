@@ -17,7 +17,6 @@ def getNeighbors(trainingset,instance,k):
     return neighbors
 
 def nearestClass(neighbors):
-    # "1" -> classical, "2" -> disco, "3" -> hiphop, "4" -> metal
     classVote = {}
     for x in range(len(neighbors)):
         response = neighbors[x]
