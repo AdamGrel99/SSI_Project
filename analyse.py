@@ -52,8 +52,11 @@ def getAccuracy(testSet, prediction):
         print(f"To jest : {true_label}, a to nasze przewidywanie {predicted_label}")
         if testSet[x][-1] == prediction[x]:
             correct += 1
+
+    print("\nMacierz pomyłek:")
     for i in range(6):
         print(confusionMatrix[i])
+    print()
 
     metrics = {}
     for genre in genres:
