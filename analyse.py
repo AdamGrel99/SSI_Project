@@ -12,16 +12,9 @@ def loadDataset(filename):
                 break
     return dataset
 
-def splitDataset(dataset, split, trset, teset):
-    rd.seed(15)
-    rd.shuffle(dataset)
-
-    splitRange = int(split * len(dataset))
-    for i in range(splitRange):
-        trset.append(dataset[i])
-    for j in range(splitRange, len(dataset)):
-        teset.append(dataset[j])
-
+def trainTestSplit(dataset,split = 0.7):
+    count = int(split * len(dataset))
+    return (dataset[:count],dataset[count:])
 
 def getAccuracy(testSet, prediction):
     correct = 0
@@ -80,4 +73,4 @@ def getAccuracy(testSet, prediction):
             print(f"{key}: {value}%")
         print("\n")
 
-    return correct / len(testSet)
+    return (correct / len(testSet),metrics)
