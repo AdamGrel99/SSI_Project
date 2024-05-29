@@ -56,4 +56,4 @@ for x in range(len(testSet)):
     predict = bayes.determineGenre(testSet[x],bayes.classify(trainingSet))
     predictions.append(predict)
 accuracy = analyse.getAccuracy(testSet,predictions)
-print(f"Dokładność dla Bayesa: {round(accuracy[0],2)}%")
+print(f"Dokładność dla Bayesa: {round(accuracy[0] * 10000.0) / 100.0}%")
