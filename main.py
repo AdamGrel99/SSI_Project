@@ -22,7 +22,7 @@ for k in [3,4,5,6,7,8,9,10]:
 
 print("Dokładność dla algorytmu KNN:")
 for result in results:
-    print(f"  k = {result[0]}: {result[1]}")
+    print(f"  k = {result[0]}: {result[1]}%")
 
 _,knnAccuracyPlot = plot.subplots(1,1)
 knnAccuracyPlot.set_title("Dokładność KNN")
