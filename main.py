@@ -57,5 +57,3 @@ for x in range(len(testSet)):
     predictions.append(predict)
 accuracy = analyse.getAccuracy(testSet,predictions)
 print(f"Dokładność dla Bayesa: {round(accuracy[0],2)}%")
-
-_,bayesStats = plot.subplots(1,1)
