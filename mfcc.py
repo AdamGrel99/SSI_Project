@@ -66,12 +66,17 @@ def mfcc(
     return result
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        name = sys.argv[0] if len(sys.argv[0]) > 0 else "./mfcc"
+        print(f"Użycie: python {name} ścieżka_do_bazy")
+        exit(0)
+
     print("Tworzenie bazy danych ...")
     startTime = time.perf_counter_ns()
     Directories = ["classical","disco","hiphop","metal","blues","country"]
     with open("./my.dat","wb") as f:
         for i in range(len(Directories)):
-            path = "./data/" + Directories[i]
+            path = sys.argv[1] + "/" + Directories[i]
             for file in os.listdir(path):
                 try:
                     (rate,sig) = wav.read(path + "/" + file)
